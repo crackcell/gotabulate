@@ -15,7 +15,7 @@ package main
 import "github.com/crackcell/gotabulate"
 
 func main() {
-	tabulator := NewTabulator()
+	tabulator := gotabulate.NewTabulator()
 	tabulator.SetFirstRowHeader(true)
 	tabulator.SetFormat("orgtbl")
 	fmt.Print(
