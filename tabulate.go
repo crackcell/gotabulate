@@ -36,6 +36,7 @@ type Table struct {
 
 var formatters = map[string]Formatter{
 	"simple": NewSimpleFormatter(),
+	"orgtbl": NewOrgtblFormatter(),
 }
 
 func Tabulate(data [][]string, headers []string, tablefmt string) string {
