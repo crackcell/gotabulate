@@ -10,22 +10,29 @@
 /**
  *
  *
- * @file formater.go
+ * @file tabulate_test.go
  * @author Menglong TAN <tanmenglong@gmail.com>
- * @date Fri Oct  9 00:28:44 2015
+ * @date Sat Oct 10 11:20:17 2015
  *
  **/
 
-package gotable
+package gotabulate
 
 import (
 	"fmt"
+	"testing"
 )
 
-//===================================================================
-// Public APIs
-//===================================================================
-
-//===================================================================
-// Private
-//===================================================================
+func TestTabluateSimple(t *testing.T) {
+	fmt.Print(
+		Tabulate(
+			[][]string{
+				[]string{"1", "crackcell"},
+				[]string{"2", "crackcell2"},
+				[]string{"3", "crackcell3", "redundant cell"},
+				[]string{"4"},
+				[]string{"5", "crackcell5"}},
+			[]string{"id", "name"},
+			"simple",
+		))
+}
