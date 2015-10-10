@@ -4,7 +4,7 @@ Golang clone of Python [tabulate](https://pypi.python.org/pypi/tabulate).
 ## Installation
 
 ```
-go install github.com/crackcell/gotabulate
+go get github.com/crackcell/gotabulate
 ```
 
 ## Library usage
