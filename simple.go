@@ -35,14 +35,20 @@ func NewSimpleFormatter() *SimpleFormatter {
 
 func (this *SimpleFormatter) Format(table *Table) string {
 	str := ""
-	str += this.formatLine(table.Headers, table)
-	headerSep := make([]string, table.ColumnSize)
-	for i, _ := range headerSep {
-		headerSep[i] = strings.Repeat("-", table.CellWidth[i])
+	var header []string
+	if table.FirstRowHeader && len(table.Data) > 0 {
+		header = table.Data[0]
+	} else {
+		header = table.Headers
 	}
-	str += this.formatLine(headerSep, table)
-	for _, row := range table.Data {
-		str += this.formatLine(row, table)
+	str += this.formatLine(header, table)
+	str += this.formatHeaderSep(table)
+	rowStart := 0
+	if table.FirstRowHeader {
+		rowStart = 1
+	}
+	for i := rowStart; i < len(table.Data); i++ {
+		str += this.formatLine(table.Data[i], table)
 	}
 	return str
 }
@@ -59,5 +65,15 @@ func (this *SimpleFormatter) formatLine(row []string, table *Table) string {
 		str += fmt.Sprintf("%s%s  ", strings.Repeat(" ", table.CellWidth[i]-len(row[i])), row[i])
 	}
 	str += "\n"
+	return str
+}
+
+func (this *SimpleFormatter) formatHeaderSep(table *Table) string {
+	str := ""
+	headerSep := make([]string, table.ColumnSize)
+	for i, _ := range headerSep {
+		headerSep[i] = strings.Repeat("-", table.CellWidth[i])
+	}
+	str += this.formatLine(headerSep, table)
 	return str
 }

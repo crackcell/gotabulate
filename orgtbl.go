@@ -35,10 +35,20 @@ func NewOrgtblFormatter() *OrgtblFormatter {
 
 func (this *OrgtblFormatter) Format(table *Table) string {
 	str := ""
-	str += this.formatLine(table.Headers, table)
+	var header []string
+	if table.FirstRowHeader && len(table.Data) > 0 {
+		header = table.Data[0]
+	} else {
+		header = table.Headers
+	}
+	str += this.formatLine(header, table)
 	str += this.formatHeaderSep(table)
-	for _, row := range table.Data {
-		str += this.formatLine(row, table)
+	rowStart := 0
+	if table.FirstRowHeader {
+		rowStart = 1
+	}
+	for i := rowStart; i < len(table.Data); i++ {
+		str += this.formatLine(table.Data[i], table)
 	}
 	return str
 }

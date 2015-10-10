@@ -28,33 +28,65 @@ import (
 //===================================================================
 
 type Table struct {
-	Headers    []string
-	Data       [][]string
-	ColumnSize int
-	CellWidth  []int
+	Headers        []string
+	FirstRowHeader bool
+	Data           [][]string
+	ColumnSize     int
+	CellWidth      []int
 }
+
+type Tabulator struct {
+	Headers        []string
+	FirstRowHeader bool
+	Format         string
+}
+
+const (
+	defaultFormat = "simple"
+)
 
 var formatters = map[string]Formatter{
 	"simple": NewSimpleFormatter(),
 	"orgtbl": NewOrgtblFormatter(),
 }
 
-func Tabulate(data [][]string, headers []string, tablefmt string) string {
-	headerLen := len(headers)
-	table := &Table{
-		Headers:    headers,
-		Data:       data,
-		ColumnSize: headerLen,
-		CellWidth:  make([]int, headerLen),
+func NewTabulator() *Tabulator {
+	return &Tabulator{
+		FirstRowHeader: true,
+		Format:         defaultFormat,
 	}
-	table.UpdateCellWidth(headers)
+}
+
+func (this *Tabulator) SetHeader(header []string) {
+	this.Headers = header
+	this.FirstRowHeader = false
+}
+
+func (this *Tabulator) SetFirstRowHeader(use bool) {
+	this.FirstRowHeader = use
+}
+
+func (this *Tabulator) SetFormat(format string) {
+	this.Format = format
+}
+
+func (this *Tabulator) Tabulate(data [][]string) string {
+	headerLen := len(this.Headers)
+	table := &Table{
+		Headers:        this.Headers,
+		FirstRowHeader: this.FirstRowHeader,
+		Data:           data,
+		ColumnSize:     headerLen,
+		CellWidth:      make([]int, headerLen),
+	}
+	table.UpdateCellWidth(table.Headers)
 	for _, row := range table.Data {
 		table.UpdateCellWidth(row)
 	}
-	if formatter, ok := formatters[strings.ToLower(tablefmt)]; ok {
+	if formatter, ok := formatters[strings.ToLower(this.Format)]; ok {
 		return formatter.Format(table)
 	} else {
-		panic(fmt.Errorf("unsupported format: %s", tablefmt))
+		panic(fmt.Errorf("unsupported format: %s", this.Format))
 	}
 }
 

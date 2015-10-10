@@ -15,16 +15,17 @@ package main
 import "github.com/crackcell/gotabulate"
 
 func main() {
+	tabulator := NewTabulator()
+	tabulator.SetFirstRowHeader(true)
+	tabulator.SetFormat("orgtbl")
 	fmt.Print(
-		Tabulate(
+		tabulator.Tabulate(
 			[][]string{
 				[]string{"1", "crackcell"},
 				[]string{"2", "crackcell2"},
 				[]string{"3", "crackcell3", "redundant cell"},
 				[]string{"4"},
 				[]string{"5", "crackcell5"}},
-			[]string{"id", "name"},
-			"simple",
 		))
 }
 ```

@@ -23,30 +23,58 @@ import (
 	"testing"
 )
 
+var tabulator = NewTabulator()
+
 func TestTabluateSimple(t *testing.T) {
+	tabulator.SetHeader([]string{"id", "name"})
+	tabulator.SetFormat("simple")
 	fmt.Print(
-		Tabulate(
+		tabulator.Tabulate(
 			[][]string{
 				[]string{"long long long id 1", "crackcell"},
 				[]string{"2", "crackcell2"},
 				[]string{"3", "crackcell3", "redundant cell"},
 				[]string{"4"},
 				[]string{"5", "crackcell5"}},
-			[]string{"id", "name"},
-			"simple",
+		))
+}
+func TestTabluateSimpleFirstRow(t *testing.T) {
+	tabulator.SetFirstRowHeader(true)
+	tabulator.SetFormat("simple")
+	fmt.Print(
+		tabulator.Tabulate(
+			[][]string{
+				[]string{"long long long id 1", "crackcell"},
+				[]string{"2", "crackcell2"},
+				[]string{"3", "crackcell3", "redundant cell"},
+				[]string{"4"},
+				[]string{"5", "crackcell5"}},
 		))
 }
 
 func TestTabluateOrgtbl(t *testing.T) {
+	tabulator.SetHeader([]string{"id", "name"})
+	tabulator.SetFormat("orgtbl")
 	fmt.Print(
-		Tabulate(
+		tabulator.Tabulate(
 			[][]string{
 				[]string{"long long long id 1", "crackcell"},
 				[]string{"2", "crackcell2"},
 				[]string{"3", "crackcell3", "redundant cell"},
 				[]string{"4"},
 				[]string{"5", "crackcell5"}},
-			[]string{"id", "name"},
-			"orgtbl",
+		))
+}
+func TestTabluateOrgtblFirstRow(t *testing.T) {
+	tabulator.SetFirstRowHeader(true)
+	tabulator.SetFormat("orgtbl")
+	fmt.Print(
+		tabulator.Tabulate(
+			[][]string{
+				[]string{"long long long id 1", "crackcell"},
+				[]string{"2", "crackcell2"},
+				[]string{"3", "crackcell3", "redundant cell"},
+				[]string{"4"},
+				[]string{"5", "crackcell5"}},
 		))
 }
