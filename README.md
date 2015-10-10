@@ -82,6 +82,17 @@ long long long id 1   crackcell
 | 5                   | crackcell5 |
 ```
 
+#### pipe
+
+```
+| id                  |       name | age |
+|:--------------------|-----------:|----:|
+| long long long id 1 |  crackcell |  27 |
+| 2                   | crackcell2 |  27 |
+| 3                   | crackcell3 |  27 |
+| 4                   |            |     |
+| 5                   | crackcell5 |     |
+```
 
 ### Column alignment
 
