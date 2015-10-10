@@ -10,13 +10,13 @@
 /**
  *
  *
- * @file table.go
+ * @file tabulate.go
  * @author Menglong TAN <tanmenglong@gmail.com>
  * @date Thu Oct  8 23:58:11 2015
  *
  **/
 
-package gotable
+package gotabulate
 
 import (
 	"fmt"
