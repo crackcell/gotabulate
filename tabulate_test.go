@@ -25,56 +25,43 @@ import (
 
 var tabulator = NewTabulator()
 
-func TestTabluateSimple(t *testing.T) {
-	tabulator.SetHeader([]string{"id", "name"})
-	tabulator.SetFormat("simple")
+func printStyleTable(format string) {
+	fmt.Printf("%s\n", format)
+	tabulator.SetHeader([]string{"id", "name", "age"})
+	tabulator.SetFormat(format)
 	fmt.Print(
 		tabulator.Tabulate(
 			[][]string{
-				[]string{"long long long id 1", "crackcell"},
-				[]string{"2", "crackcell2"},
-				[]string{"3", "crackcell3", "redundant cell"},
+				[]string{"long long long id 1", "crackcell", "27"},
+				[]string{"2", "crackcell2", "27"},
+				[]string{"3", "crackcell3", "27", "redundant cell"},
 				[]string{"4"},
 				[]string{"5", "crackcell5"}},
 		))
-}
-func TestTabluateSimpleFirstRow(t *testing.T) {
-	tabulator.SetFirstRowHeader(true)
-	tabulator.SetFormat("simple")
-	fmt.Print(
-		tabulator.Tabulate(
-			[][]string{
-				[]string{"long long long id 1", "crackcell"},
-				[]string{"2", "crackcell2"},
-				[]string{"3", "crackcell3", "redundant cell"},
-				[]string{"4"},
-				[]string{"5", "crackcell5"}},
-		))
+	fmt.Println()
 }
 
-func TestTabluateOrgtbl(t *testing.T) {
-	tabulator.SetHeader([]string{"id", "name"})
-	tabulator.SetFormat("orgtbl")
-	fmt.Print(
-		tabulator.Tabulate(
-			[][]string{
-				[]string{"long long long id 1", "crackcell"},
-				[]string{"2", "crackcell2"},
-				[]string{"3", "crackcell3", "redundant cell"},
-				[]string{"4"},
-				[]string{"5", "crackcell5"}},
-		))
-}
-func TestTabluateOrgtblFirstRow(t *testing.T) {
+func printStyleTableFirstRow(format string) {
+	fmt.Printf("%s\n", format)
 	tabulator.SetFirstRowHeader(true)
-	tabulator.SetFormat("orgtbl")
+	tabulator.SetFormat(format)
 	fmt.Print(
 		tabulator.Tabulate(
 			[][]string{
-				[]string{"long long long id 1", "crackcell"},
-				[]string{"2", "crackcell2"},
-				[]string{"3", "crackcell3", "redundant cell"},
+				[]string{"long long long id 1", "crackcell", "27"},
+				[]string{"2", "crackcell2", "27"},
+				[]string{"3", "crackcell3", "27", "redundant cell"},
 				[]string{"4"},
 				[]string{"5", "crackcell5"}},
 		))
+	fmt.Println()
+}
+
+func TestTabluateAllStyle(t *testing.T) {
+	printStyleTable("simple")
+	printStyleTableFirstRow("simple")
+	printStyleTable("orgtbl")
+	printStyleTableFirstRow("orgtbl")
+	printStyleTable("pipe")
+	printStyleTableFirstRow("pipe")
 }

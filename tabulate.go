@@ -48,6 +48,7 @@ const (
 var formatters = map[string]Formatter{
 	"simple": NewSimpleFormatter(),
 	"orgtbl": NewOrgtblFormatter(),
+	"pipe":   NewPipeFormatter(),
 }
 
 func NewTabulator() *Tabulator {
