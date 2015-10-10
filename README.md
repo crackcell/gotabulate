@@ -44,17 +44,19 @@ id  name
 
 ### Table format
 
-- plain
+~~not supported yet~~
+
+- ~~plain~~
 - simple
-- grid
-- fancy_grid
-- pipe
-- orgtbl
-- rst
-- mediawiki
-- html
-- latex
-- latex_booktabs
+- ~~grid~~
+- ~~fancy_grid~~
+- ~~pipe~~
+- ~~orgtbl~~
+- ~~rst~~
+- ~~mediawiki~~
+- ~~html~~
+- ~~latex~~
+- ~~latex_booktabs~~
 
 ### Column alignment
 
