@@ -50,7 +50,7 @@ Output:
 - simple
 - ~~grid~~
 - ~~fancy_grid~~
-- ~~pipe~~
+- pipe
 - orgtbl
 - ~~rst~~
 - ~~mediawiki~~
