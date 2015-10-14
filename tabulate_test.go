@@ -66,4 +66,6 @@ func TestTabluateAllStyle(t *testing.T) {
 	printStyleTableFirstRow("pipe")
 	printStyleTable("plain")
 	printStyleTableFirstRow("plain")
+	printStyleTable("psql")
+	printStyleTableFirstRow("psql")
 }

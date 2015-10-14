@@ -40,7 +40,9 @@ func (this *PsqlFormatter) Format(table *Table) string {
 	} else {
 		header = table.Headers
 	}
+	str += this.formatLineSep(table, "+")
 	str += this.formatLine(header, table)
+	str += this.formatLineSep(table, "|")
 	rowStart := 0
 	if table.FirstRowHeader {
 		rowStart = 1
@@ -48,6 +50,7 @@ func (this *PsqlFormatter) Format(table *Table) string {
 	for i := rowStart; i < len(table.Data); i++ {
 		str += this.formatLine(table.Data[i], table)
 	}
+	str += this.formatLineSep(table, "+")
 	return str
 }
 
@@ -58,14 +61,23 @@ func (this *PsqlFormatter) Format(table *Table) string {
 func (this *PsqlFormatter) formatLine(row []string, table *Table) string {
 	str := ""
 	l := len(row)
-	str += fmt.Sprintf("%s%s   ", row[0], strings.Repeat(" ", table.CellWidth[0]-len(row[0])))
+	str += fmt.Sprintf("| %s%s ", row[0], strings.Repeat(" ", table.CellWidth[0]-len(row[0])))
 	for i := 1; i < table.ColumnSize; i++ {
 		v := ""
 		if i < l {
 			v = row[i]
 		}
-		str += fmt.Sprintf("%s%s   ", strings.Repeat(" ", table.CellWidth[i]-len(v)), v)
+		str += fmt.Sprintf("| %s%s ", strings.Repeat(" ", table.CellWidth[i]-len(v)), v)
 	}
-	str += "\n"
+	str += "|\n"
+	return str
+}
+
+func (this *PsqlFormatter) formatLineSep(table *Table, ending string) string {
+	str := fmt.Sprintf("%s%s", ending, strings.Repeat("-", table.CellWidth[0]+2))
+	for i := 1; i < table.ColumnSize; i++ {
+		str += fmt.Sprintf("+%s", strings.Repeat("-", table.CellWidth[i]+2))
+	}
+	str += ending + "\n"
 	return str
 }
