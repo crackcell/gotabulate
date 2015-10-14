@@ -21,7 +21,7 @@ func main() {
 	fmt.Print(
 		tabulator.Tabulate(
 			[][]string{
-				[]string{"1", "crackcell"},
+				[]string{"long long long id 1", "crackcell"},
 				[]string{"2", "crackcell2"},
 				[]string{"3", "crackcell3", "redundant cell"},
 				[]string{"4"},
