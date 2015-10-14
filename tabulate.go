@@ -50,6 +50,7 @@ var formatters = map[string]Formatter{
 	"orgtbl": NewOrgtblFormatter(),
 	"pipe":   NewPipeFormatter(),
 	"plain":  NewPlainFormatter(),
+	"psql":   NewPsqlFormatter(),
 }
 
 func NewTabulator() *Tabulator {

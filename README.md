@@ -51,6 +51,7 @@ Output:
 - ~~grid~~
 - ~~fancy_grid~~
 - pipe
+- psql
 - orgtbl
 - ~~rst~~
 - ~~mediawiki~~
