@@ -1,6 +1,6 @@
 /***************************************************************
  *
- * Copyright (c) 2015, Menglong TAN <tanmenglong@gmail.com>
+ * Copyright (c) 2015, Wenbin Xiao <xwb1989@gmail.com>
  *
  * This program is free software; you can redistribute it
  * and/or modify it under the terms of the BSD licence
