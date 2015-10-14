@@ -49,6 +49,7 @@ var formatters = map[string]Formatter{
 	"simple": NewSimpleFormatter(),
 	"orgtbl": NewOrgtblFormatter(),
 	"pipe":   NewPipeFormatter(),
+	"plain":  NewPlainFormatter(),
 }
 
 func NewTabulator() *Tabulator {

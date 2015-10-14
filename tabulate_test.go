@@ -64,4 +64,6 @@ func TestTabluateAllStyle(t *testing.T) {
 	printStyleTableFirstRow("orgtbl")
 	printStyleTable("pipe")
 	printStyleTableFirstRow("pipe")
+	printStyleTable("plain")
+	printStyleTableFirstRow("plain")
 }

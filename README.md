@@ -46,7 +46,7 @@ Output:
 
 ~~not supported yet~~
 
-- ~~plain~~
+- plain
 - simple
 - ~~grid~~
 - ~~fancy_grid~~
