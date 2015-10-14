@@ -68,4 +68,6 @@ func TestTabluateAllStyle(t *testing.T) {
 	printStyleTableFirstRow("plain")
 	printStyleTable("psql")
 	printStyleTableFirstRow("psql")
+	printStyleTable("grid")
+	printStyleTableFirstRow("grid")
 }

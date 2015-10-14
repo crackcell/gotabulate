@@ -51,6 +51,7 @@ var formatters = map[string]Formatter{
 	"pipe":   NewPipeFormatter(),
 	"plain":  NewPlainFormatter(),
 	"psql":   NewPsqlFormatter(),
+	"grid":   NewGridFormatter(),
 }
 
 func NewTabulator() *Tabulator {
