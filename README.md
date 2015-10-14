@@ -74,15 +74,7 @@ long long long id 1   crackcell
 #### plain
 
 ```
-plain
 id                          name   age
-long long long id 1    crackcell    27
-2                     crackcell2    27
-3                     crackcell3    27
-4
-5                     crackcell5
-
-plain
 long long long id 1    crackcell    27
 2                     crackcell2    27
 3                     crackcell3    27
@@ -97,16 +89,6 @@ long long long id 1    crackcell    27
 | id                  |       name | age |
 |---------------------+------------+-----|
 | long long long id 1 |  crackcell |  27 |
-| 2                   | crackcell2 |  27 |
-| 3                   | crackcell3 |  27 |
-| 4                   |            |     |
-| 5                   | crackcell5 |     |
-+---------------------+------------+-----+
-
-psql
-+---------------------+------------+-----+
-| long long long id 1 |  crackcell |  27 |
-|---------------------+------------+-----|
 | 2                   | crackcell2 |  27 |
 | 3                   | crackcell3 |  27 |
 | 4                   |            |     |
