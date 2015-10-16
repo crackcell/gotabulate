@@ -21,7 +21,7 @@ func main() {
 	fmt.Print(
 		tabulator.Tabulate(
 			[][]string{
-				[]string{"1", "crackcell"},
+				[]string{"long long long id 1", "crackcell"},
 				[]string{"2", "crackcell2"},
 				[]string{"3", "crackcell3", "redundant cell"},
 				[]string{"4"},
@@ -46,11 +46,12 @@ Output:
 
 ~~not supported yet~~
 
-- ~~plain~~
+- plain
 - simple
-- ~~grid~~
+- grid
 - ~~fancy_grid~~
 - pipe
+- psql
 - orgtbl
 - ~~rst~~
 - ~~mediawiki~~
@@ -68,6 +69,31 @@ long long long id 1   crackcell
 3                    crackcell3
 4
 5                    crackcell5
+```
+
+#### plain
+
+```
+id                          name   age
+long long long id 1    crackcell    27
+2                     crackcell2    27
+3                     crackcell3    27
+4
+5                     crackcell5
+```
+
+#### psql
+
+```
++---------------------+------------+-----+
+| id                  |       name | age |
+|---------------------+------------+-----|
+| long long long id 1 |  crackcell |  27 |
+| 2                   | crackcell2 |  27 |
+| 3                   | crackcell3 |  27 |
+| 4                   |            |     |
+| 5                   | crackcell5 |     |
++---------------------+------------+-----+
 ```
 
 #### orgtbl
@@ -94,8 +120,27 @@ long long long id 1   crackcell
 | 5                   | crackcell5 |     |
 ```
 
+#### grid
+
+```
++---------------------+------------+-----+
+| id                  |       name | age |
++=====================+============+=====+
+| long long long id 1 |  crackcell |  27 |
++---------------------+------------+-----+
+| 2                   | crackcell2 |  27 |
++---------------------+------------+-----+
+| 3                   | crackcell3 |  27 |
++---------------------+------------+-----+
+| 4                   |            |     |
++---------------------+------------+-----+
+| 5                   | crackcell5 |     |
++---------------------+------------+-----+
+```
+
 ### Column alignment
 
 ## Contributors
 
 - Menglong TAN <tanmenglong@gmail.com>
+- Wenbin Xiao <xwb1989@gmail.com>

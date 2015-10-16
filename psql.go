@@ -1,6 +1,6 @@
 /***************************************************************
  *
- * Copyright (c) 2015, Menglong TAN <tanmenglong@gmail.com>
+ * Copyright (c) 2015, Wenbin Xiao <xwb1989@gmail.com>
  *
  * This program is free software; you can redistribute it
  * and/or modify it under the terms of the BSD licence
@@ -10,9 +10,9 @@
 /**
  *
  *
- * @file pipe.go
- * @author Menglong TAN <tanmenglong@gmail.com>
- * @date Sat Oct 10 16:35:28 2015
+ * @file psql.go
+ * @author Wenbin Xiao <xwb1989gmail.com>
+ * @date Wed Oct 14 2015
  *
  **/
 
@@ -26,14 +26,13 @@ import (
 //===================================================================
 // Public APIs
 //===================================================================
+type PsqlFormatter struct{}
 
-type PipeFormatter struct{}
-
-func NewPipeFormatter() *PipeFormatter {
-	return &PipeFormatter{}
+func NewPsqlFormatter() *PsqlFormatter {
+	return &PsqlFormatter{}
 }
 
-func (this *PipeFormatter) Format(table *Table) string {
+func (this *PsqlFormatter) Format(table *Table) string {
 	str := ""
 	var header []string
 	if table.FirstRowHeader && len(table.Data) > 0 {
@@ -41,8 +40,9 @@ func (this *PipeFormatter) Format(table *Table) string {
 	} else {
 		header = table.Headers
 	}
+	str += this.formatLineSep(table, "+")
 	str += this.formatLine(header, table)
-	str += this.formatHeaderSep(table)
+	str += this.formatLineSep(table, "|")
 	rowStart := 0
 	if table.FirstRowHeader {
 		rowStart = 1
@@ -50,6 +50,7 @@ func (this *PipeFormatter) Format(table *Table) string {
 	for i := rowStart; i < len(table.Data); i++ {
 		str += this.formatLine(table.Data[i], table)
 	}
+	str += this.formatLineSep(table, "+")
 	return str
 }
 
@@ -57,7 +58,7 @@ func (this *PipeFormatter) Format(table *Table) string {
 // Private
 //===================================================================
 
-func (this *PipeFormatter) formatLine(row []string, table *Table) string {
+func (this *PsqlFormatter) formatLine(row []string, table *Table) string {
 	str := ""
 	l := len(row)
 	str += fmt.Sprintf("| %s%s ", row[0], strings.Repeat(" ", table.CellWidth[0]-len(row[0])))
@@ -72,11 +73,11 @@ func (this *PipeFormatter) formatLine(row []string, table *Table) string {
 	return str
 }
 
-func (this *PipeFormatter) formatHeaderSep(table *Table) string {
-	str := fmt.Sprintf("|:%s", strings.Repeat("-", table.CellWidth[0]+1))
+func (this *PsqlFormatter) formatLineSep(table *Table, ending string) string {
+	str := fmt.Sprintf("%s%s", ending, strings.Repeat("-", table.CellWidth[0]+2))
 	for i := 1; i < table.ColumnSize; i++ {
-		str += fmt.Sprintf("|%s:", strings.Repeat("-", table.CellWidth[i]+1))
+		str += fmt.Sprintf("+%s", strings.Repeat("-", table.CellWidth[i]+2))
 	}
-	str += "|\n"
+	str += ending + "\n"
 	return str
 }
