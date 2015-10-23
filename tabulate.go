@@ -75,7 +75,19 @@ func (this *Tabulator) SetFormat(format string) {
 }
 
 func (this *Tabulator) Tabulate(data [][]string) string {
-	headerLen := len(this.Headers)
+	if len(data) == 0 {
+		return ""
+	}
+	headerLen := 0
+	if this.FirstRowHeader {
+		headerLen = len(data[0])
+	} else {
+		headerLen = len(this.Headers)
+	}
+	if headerLen == 0 {
+		return ""
+	}
+
 	table := &Table{
 		Headers:        this.Headers,
 		FirstRowHeader: this.FirstRowHeader,
