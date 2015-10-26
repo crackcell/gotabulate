@@ -33,22 +33,22 @@ func NewSimpleFormatter() *SimpleFormatter {
 	return &SimpleFormatter{}
 }
 
-func (this *SimpleFormatter) Format(table *Table) string {
+func (this *SimpleFormatter) Format(info *TableInfo) string {
 	str := ""
 	var header []string
-	if table.FirstRowHeader && len(table.Data) > 0 {
-		header = table.Data[0]
+	if info.FirstRowHeader && len(info.Data) > 0 {
+		header = info.Data[0]
 	} else {
-		header = table.Headers
+		header = info.Headers
 	}
-	str += this.formatLine(header, table)
-	str += this.formatHeaderSep(table)
+	str += this.formatLine(header, info)
+	str += this.formatHeaderSep(info)
 	rowStart := 0
-	if table.FirstRowHeader {
+	if info.FirstRowHeader {
 		rowStart = 1
 	}
-	for i := rowStart; i < len(table.Data); i++ {
-		str += this.formatLine(table.Data[i], table)
+	for i := rowStart; i < len(info.Data); i++ {
+		str += this.formatLine(info.Data[i], info)
 	}
 	return str
 }
@@ -57,23 +57,23 @@ func (this *SimpleFormatter) Format(table *Table) string {
 // Private
 //===================================================================
 
-func (this *SimpleFormatter) formatLine(row []string, table *Table) string {
+func (this *SimpleFormatter) formatLine(row []string, info *TableInfo) string {
 	str := ""
 	l := len(row)
-	str += fmt.Sprintf("%s%s  ", row[0], strings.Repeat(" ", table.CellWidth[0]-len(row[0])))
-	for i := 1; i < l && i < table.ColumnSize; i++ {
-		str += fmt.Sprintf("%s%s  ", strings.Repeat(" ", table.CellWidth[i]-len(row[i])), row[i])
+	str += fmt.Sprintf("%s%s  ", row[0], strings.Repeat(" ", info.CellWidth[0]-len(row[0])))
+	for i := 1; i < l && i < info.ColumnSize; i++ {
+		str += fmt.Sprintf("%s%s  ", strings.Repeat(" ", info.CellWidth[i]-len(row[i])), row[i])
 	}
 	str += "\n"
 	return str
 }
 
-func (this *SimpleFormatter) formatHeaderSep(table *Table) string {
+func (this *SimpleFormatter) formatHeaderSep(info *TableInfo) string {
 	str := ""
-	headerSep := make([]string, table.ColumnSize)
+	headerSep := make([]string, info.ColumnSize)
 	for i, _ := range headerSep {
-		headerSep[i] = strings.Repeat("-", table.CellWidth[i])
+		headerSep[i] = strings.Repeat("-", info.CellWidth[i])
 	}
-	str += this.formatLine(headerSep, table)
+	str += this.formatLine(headerSep, info)
 	return str
 }

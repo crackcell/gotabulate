@@ -27,7 +27,7 @@ import (
 // Public APIs
 //===================================================================
 
-type Table struct {
+type TableInfo struct {
 	Headers        []string
 	FirstRowHeader bool
 	Data           [][]string
@@ -75,32 +75,21 @@ func (this *Tabulator) SetFormat(format string) {
 }
 
 func (this *Tabulator) Tabulate(data [][]string) string {
-	if len(data) == 0 {
-		return ""
-	}
-	headerLen := 0
-	if this.FirstRowHeader {
-		headerLen = len(data[0])
-	} else {
-		headerLen = len(this.Headers)
-	}
-	if headerLen == 0 {
-		return ""
-	}
-
-	table := &Table{
+	info := &TableInfo{
 		Headers:        this.Headers,
 		FirstRowHeader: this.FirstRowHeader,
 		Data:           data,
-		ColumnSize:     headerLen,
-		CellWidth:      make([]int, headerLen),
+		ColumnSize:     0,
+		CellWidth:      []int{},
 	}
-	table.UpdateCellWidth(table.Headers)
-	for _, row := range table.Data {
-		table.UpdateCellWidth(row)
+	if !this.FirstRowHeader {
+		info.Update(info.Headers)
+	}
+	for _, row := range info.Data {
+		info.Update(row)
 	}
 	if formatter, ok := formatters[strings.ToLower(this.Format)]; ok {
-		return formatter.Format(table)
+		return formatter.Format(info)
 	} else {
 		panic(fmt.Errorf("unsupported format: %s", this.Format))
 	}
@@ -110,18 +99,18 @@ func (this *Tabulator) Tabulate(data [][]string) string {
 // Private
 //===================================================================
 
-func (this *Table) UpdateCellWidth(row []string) {
+func (this *TableInfo) Update(row []string) {
 	rowLen := len(row)
-	var colSize int
-	if rowLen < this.ColumnSize {
-		colSize = rowLen
-	} else {
-		colSize = this.ColumnSize
+	if rowLen > this.ColumnSize {
+		for i := 0; i < rowLen-this.ColumnSize; i++ {
+			this.CellWidth = append(this.CellWidth, 0)
+		}
+		this.ColumnSize = rowLen
 	}
-	for i := 0; i < colSize; i++ {
-		cellSize := len(row[i])
-		if cellSize > this.CellWidth[i] {
-			this.CellWidth[i] = cellSize
+	for i := 0; i < rowLen; i++ {
+		l := len(row[i])
+		if l > this.CellWidth[i] {
+			this.CellWidth[i] = l
 		}
 	}
 }

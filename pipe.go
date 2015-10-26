@@ -33,22 +33,22 @@ func NewPipeFormatter() *PipeFormatter {
 	return &PipeFormatter{}
 }
 
-func (this *PipeFormatter) Format(table *Table) string {
+func (this *PipeFormatter) Format(info *TableInfo) string {
 	str := ""
 	var header []string
-	if table.FirstRowHeader && len(table.Data) > 0 {
-		header = table.Data[0]
+	if info.FirstRowHeader && len(info.Data) > 0 {
+		header = info.Data[0]
 	} else {
-		header = table.Headers
+		header = info.Headers
 	}
-	str += this.formatLine(header, table)
-	str += this.formatHeaderSep(table)
+	str += this.formatLine(header, info)
+	str += this.formatHeaderSep(info)
 	rowStart := 0
-	if table.FirstRowHeader {
+	if info.FirstRowHeader {
 		rowStart = 1
 	}
-	for i := rowStart; i < len(table.Data); i++ {
-		str += this.formatLine(table.Data[i], table)
+	for i := rowStart; i < len(info.Data); i++ {
+		str += this.formatLine(info.Data[i], info)
 	}
 	return str
 }
@@ -57,25 +57,25 @@ func (this *PipeFormatter) Format(table *Table) string {
 // Private
 //===================================================================
 
-func (this *PipeFormatter) formatLine(row []string, table *Table) string {
+func (this *PipeFormatter) formatLine(row []string, info *TableInfo) string {
 	str := ""
 	l := len(row)
-	str += fmt.Sprintf("| %s%s ", row[0], strings.Repeat(" ", table.CellWidth[0]-len(row[0])))
-	for i := 1; i < table.ColumnSize; i++ {
+	str += fmt.Sprintf("| %s%s ", row[0], strings.Repeat(" ", info.CellWidth[0]-len(row[0])))
+	for i := 1; i < info.ColumnSize; i++ {
 		v := ""
 		if i < l {
 			v = row[i]
 		}
-		str += fmt.Sprintf("| %s%s ", strings.Repeat(" ", table.CellWidth[i]-len(v)), v)
+		str += fmt.Sprintf("| %s%s ", strings.Repeat(" ", info.CellWidth[i]-len(v)), v)
 	}
 	str += "|\n"
 	return str
 }
 
-func (this *PipeFormatter) formatHeaderSep(table *Table) string {
-	str := fmt.Sprintf("|:%s", strings.Repeat("-", table.CellWidth[0]+1))
-	for i := 1; i < table.ColumnSize; i++ {
-		str += fmt.Sprintf("|%s:", strings.Repeat("-", table.CellWidth[i]+1))
+func (this *PipeFormatter) formatHeaderSep(info *TableInfo) string {
+	str := fmt.Sprintf("|:%s", strings.Repeat("-", info.CellWidth[0]+1))
+	for i := 1; i < info.ColumnSize; i++ {
+		str += fmt.Sprintf("|%s:", strings.Repeat("-", info.CellWidth[i]+1))
 	}
 	str += "|\n"
 	return str

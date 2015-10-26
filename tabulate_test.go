@@ -23,9 +23,8 @@ import (
 	"testing"
 )
 
-var tabulator = NewTabulator()
-
 func printStyleTable(format string) {
+	tabulator := NewTabulator()
 	fmt.Printf("%s\n", format)
 	tabulator.SetHeader([]string{"id", "name", "age"})
 	tabulator.SetFormat(format)
@@ -42,6 +41,7 @@ func printStyleTable(format string) {
 }
 
 func printStyleTableFirstRow(format string) {
+	tabulator := NewTabulator()
 	fmt.Printf("%s\n", format)
 	tabulator.SetFirstRowHeader(true)
 	tabulator.SetFormat(format)

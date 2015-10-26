@@ -23,7 +23,7 @@ package gotabulate
 //===================================================================
 
 type Formatter interface {
-	Format(table *Table) string
+	Format(info *TableInfo) string
 }
 
 //===================================================================
